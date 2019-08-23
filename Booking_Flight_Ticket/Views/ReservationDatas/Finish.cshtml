@@ -1,0 +1,62 @@
+﻿@model Booking_Flight_Ticket.Models.ReservationData
+
+@{
+
+    string[] time = { "09:00 -  09:20", "09:20 - 09:40", "09:40 - 09:50" };
+ }
+
+
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container">
+                <div class="row">
+                    <div class="booking-form">
+                        <h3 class="form-head">Reservation Information</h3>
+
+                        <hr>
+                        <form>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <span class="form-label">Time:  @time[ViewBag.row - 1]</span>
+                                        <span class="form-label">Date:  @Model.DateFrom.AddDays(ViewBag.col - 1)</span>
+                                        <span class="form-label">Adult:  @Model.AdultNumber</span>
+                                        <span class="form-label">Child:  @Model.ChildernNumberNumber</span>
+                                      
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+
+                         
+
+
+
+
+
+
+
+
+
+                         
+
+                      
+                            <div class="row">
+                                <div class="col-md-3">
+                                
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-btn">
+                                        <button class="submit-btn" onclick="location.href='@Url.Action("Choose", "PersonalDatas")';return false;">Back</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

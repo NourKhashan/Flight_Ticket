@@ -1,0 +1,76 @@
+﻿
+@if (ViewBag.Days != null)
+{
+        <table class="table DatesTable">
+            <thead >
+                <tr>
+
+                    <th scope="col">#</th>
+                    @for (DateTime i = (DateTime)ViewBag.From; i <= (DateTime)ViewBag.To; i= i.AddDays(1))
+                    {
+                        <th scope="col">@i.ToShortDateString()</th>
+                    }
+                    
+                   
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <th scope="row">09:00</th>
+                    @for (int i = 0; i <= ViewBag.Days; i++)
+                    {
+                        <td>09:00 - 09:20</td>
+                    }
+            
+            
+                </tr>
+                <tr>
+                    <th scope="row">09:20</th>
+                    @for (int i = 0; i <= ViewBag.Days; i++)
+                    {
+                        <td>09:20 - 09:40</td>
+
+                    }
+           
+                </tr>
+                <tr>
+                    <th scope="row">09:40</th>
+                    @for (int i = 0; i <= ViewBag.Days; i++)
+                    {
+                        <td>09:40 - 09:50</td>
+
+                    }
+
+                </tr>
+            </tbody>
+        </table>
+}
+
+
+<script>
+    var x=0, row=-1, col=-1;
+    $('table.table.DatesTable td').click(function () {
+        console.log("dddd")
+        
+        if (!$(this).hasClass("red-cell") && x == 0) {
+            console.log("Yes")
+            x = 1;
+             row = $(this).parent().index('tr');
+
+             col = $(this).index('tr:eq(' + row + ') td') + 1;
+            $(this).addClass("red-cell");
+        }
+        else if ($(this).hasClass("red-cell"))  {
+            console.log("No")
+            
+            x = 0;
+            $(this).removeClass("red-cell");
+        }
+        //alert('Row Index # ' + (row_index) + ' Column Index # ' + (col_index) + ' using index');
+        
+       
+        
+    });
+    
+</script>

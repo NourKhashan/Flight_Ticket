@@ -1,0 +1,228 @@
+﻿@model Booking_Flight_Ticket.Models.ReservationData
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+
+
+
+
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container">
+                <div class="row">
+                    <div class="booking-form">
+    <h3 class="form-head">Reservation Information</h3>
+
+    <hr>
+    @using (Html.BeginForm("Create", "ReservationDatas", FormMethod.Post,new { row="rowyy", col="colyy"}))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Class, htmlAttributes: new { @class = "form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.Class, (IEnumerable<SelectListItem>)ViewBag.Class)
+                        @Html.ValidationMessageFor(model => model.Class, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @* Adult *@
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AdultNumber, htmlAttributes: new { @class = "form-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.AdultNumber, new { htmlAttributes = new { @class = "form-control", @min = 1, @max = 5, @Value = "1" } })
+                                            @Html.ValidationMessageFor(model => model.AdultNumber, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    @* Childern *@
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ChildernNumberNumber, htmlAttributes: new { @class = "form-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.ChildernNumberNumber, new { htmlAttributes = new { @class = "form-control", @min = 0, @max = 5, @Value = "0" } })
+                                            @Html.ValidationMessageFor(model => model.ChildernNumberNumber, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DateFrom, htmlAttributes: new { @class = "form-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.DateFrom, new { htmlAttributes = new {  @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.DateFrom, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DateTo, htmlAttributes: new { @class = "form-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.DateTo, new { htmlAttributes = new {  @class = "form-control" } })
+
+                                            @Html.ValidationMessageFor(model => model.DateTo, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                            <br />
+
+                            <div class="row">
+                                @* Search *@
+                                <div class="col-md-offset-3 col-md-3">
+                                    <div class="form-group">
+                                        @*<input type="submit" value="Search" onclick="location.href='@Url.Action("Search", "ReservationDatas")';return false;" class="submit-btn" />*@
+                                        
+                                        @Ajax.ActionLink("Search","Search", "ReservationDatas", new {adult= "ayy", childern= "cyy", from="fyy", to="tyy", clas="clyy" },new AjaxOptions{
+                                       HttpMethod = "GET",
+                                       InsertionMode = InsertionMode.Replace,
+                                       UpdateTargetId = "tableR",
+                                   }, new { @class = "submit-btn-a menuLink" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+                            <br />
+                            <div class="row">
+                                @* Search View *@
+                                <div class="col-md-12">
+                                    <div id="tableR">
+                                       @Html.Partial("_ReservationDays");
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        
+        <input id="Row" name="Row" type="hidden" />
+        <input id="Col" name="Col" type="hidden" />
+
+
+                                    <div class="row">
+                                        @* Finish *@
+                                        <div class="col-md-3">
+                                            <div class="form-btn">
+                                                <input type="submit" id="btnFinish" value="Finish" class="submit-btn" />
+                                                @*@Html.ActionLink("Finish", "Create",, new { },new { class="submit-btn"});*@
+                                                @*<button class="submit-btn" onclick="location.href='@Url.Action("Create", "ReservationDatas")';return false;">Finish</button>*@
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+        </div>
+    </div>
+
+
+
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+
+<script type="text/javascript">
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementsByName("DateFrom")[0].setAttribute('min', today);
+    document.getElementsByName("DateTo")[0].setAttribute('min', today);
+
+    document.getElementsByName("DateTo")[0].setAttribute('value', today);
+    document.getElementsByName("DateFrom")[0].setAttribute('value', today);
+
+   
+
+   
+
+
+
+    $(document).ready(function () {
+
+
+        $("#btnFinish").click(function () {
+            console.log("dd ", row, "  ", col)
+            document.getElementById("Row").value = row;
+            document.getElementById("Col").value = col;
+
+        });
+
+
+
+
+        $(".menuLink").click(function () {
+            var adult = document.getElementById('AdultNumber').value,
+                child = document.getElementById('ChildernNumberNumber').value,
+                from = document.getElementById('DateFrom').value,
+                to = document.getElementById('DateTo').value,
+                classs = document.getElementById("Class").value;
+
+                
+            //url = decodeURIComponent(this.href);
+
+            this.href = this.href.replace(/ayy/g, adult);
+            this.href = this.href.replace(/cyy/g, child);
+            this.href = this.href.replace(/fyy/g, from);
+            this.href = this.href.replace(/tyy/g, to);
+            this.href = this.href.replace(/clyy/g, classs);
+
+            
+        });
+
+
+
+        $("#btnFinish").click(function () {
+        
+
+
+            console.log(row, " : ", col)
+            this.href = this.href.replace(/rowyy/g, row);
+            this.href = this.href.replace(/colyy/g, col);
+            console.log(this.href)
+          
+
+
+        });
+
+
+
+
+    
+       
+    });
+
+    </script>
+
+
+       
+}
