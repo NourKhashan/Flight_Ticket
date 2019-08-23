@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Booking_Flight_Ticket.Models;
+using Booking_Flight_Ticket.Common;
 
 namespace Booking_Flight_Ticket.Controllers
 {
@@ -91,14 +92,21 @@ namespace Booking_Flight_Ticket.Controllers
                 reservationData.DateFrom = reservationData.DateFrom.AddDays(col-1);
                 ViewBag.row = row;
                 ViewBag.col = col;
+
+                var email = db.PersonalDatas.SingleOrDefault(p => p.Id == id).Email;
+                //Email.Send(email, "Booking Ticket Flight", "You Booked Ticket -_-");
+
                 db.ReservationDatas.Add(reservationData);
                 db.SaveChanges();
+
 
                 return View("Finish", reservationData);
             }
 
             return View(reservationData);
         }
+
+      
 
 
         // GET: ReservationDatas/Edit/5
